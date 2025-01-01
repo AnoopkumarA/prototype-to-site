@@ -1,11 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { Github } from 'lucide-react';
+import { Github, LogOut } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from './ui/use-toast';
 
 export const Hero = () => {
   const [inputValue, setInputValue] = useState('');
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  const checkSession = async () => {
+    const { data: session } = await supabase.auth.getSession();
+    setIsSignedIn(!!session?.session);
+  };
 
   const handleGithubAuth = async () => {
     try {
@@ -13,6 +23,7 @@ export const Hero = () => {
       if (session?.session) {
         // If logged in, sign out
         await supabase.auth.signOut();
+        setIsSignedIn(false);
         toast({
           title: "Signed out successfully"
         });
@@ -37,19 +48,33 @@ export const Hero = () => {
 
   return (
     <div className="relative min-h-[70vh] flex flex-col items-center justify-center px-4 hero-gradient">
-      <div className="absolute top-4 right-4">
-        <Button 
-          onClick={handleGithubAuth} 
-          variant="outline"
-          className="flex items-center gap-2"
-        >
-          <Github className="w-5 h-5" />
-          Connect GitHub
-        </Button>
+      <div className="absolute top-6 right-6 z-10">
+        <div className="relative group">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-200"></div>
+          <Button 
+            onClick={handleGithubAuth} 
+            variant="outline"
+            className="relative flex items-center gap-2 bg-background/90 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all duration-200 px-4 py-2"
+          >
+            {isSignedIn ? (
+              <>
+                <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                <LogOut className="w-5 h-5" />
+                <span className="font-mono">Disconnect</span>
+              </>
+            ) : (
+              <>
+                <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                <Github className="w-5 h-5" />
+                <span className="font-mono">Initialize Auth</span>
+              </>
+            )}
+          </Button>
+        </div>
       </div>
       <div className="animate-fade-up text-center space-y-6 max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-          Deep <span className="text-primary">Coder</span>
+          Kline <span className="text-primary">Coder Ai</span>
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground">
           Let the world's best open source model create a react app for you.

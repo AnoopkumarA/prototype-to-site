@@ -49,7 +49,7 @@ export const Hero = () => {
       </div>
       <div className="animate-fade-up text-center space-y-6 max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-          Deepseek <span className="text-primary">Artifacts</span>
+          Deep <span className="text-primary">Coder</span>
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground">
           Let the world's best open source model create a react app for you.

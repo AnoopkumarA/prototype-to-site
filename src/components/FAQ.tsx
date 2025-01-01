@@ -7,16 +7,16 @@ import {
 
 const faqs = [
   {
-    question: "Why doesn't it work with raw HTML?",
-    answer: "Our model is specifically trained on React components and modern web development practices. Raw HTML wouldn't benefit from our optimized processing pipeline."
+    question: "What services does your Kline AI coding platform provide?",
+    answer: "Our platform offers AI-powered coding tools that assist developers in writing cleaner, more efficient code. We provide AI-driven code generation, real-time debugging, and intelligent code suggestions to enhance productivity. "
   },
   {
-    question: "Why are there random unrelated images?",
-    answer: "The images are carefully selected examples that demonstrate various UI patterns and design possibilities. They help inspire and guide the development process."
+    question: "How does the Kline AI code generator work?",
+    answer: "Our AI code generator uses advanced machine learning models to understand your project requirements and generate relevant code snippets based on your input. Simply describe your coding task, and our AI will suggest or generate code that you can integrate directly into your project. "
   },
   {
-    question: "Where can I find DeepSeek V3?",
-    answer: "DeepSeek V3 is currently in development. Stay tuned for updates and announcements about its release."
+    question: "When will Kline Coder Ai be released?",
+    answer: "Kline Coder Ai is currently in development and will be released to the public in the next few months. Stay tuned for updates and announcements on our website and social media channels."
   }
 ];
 

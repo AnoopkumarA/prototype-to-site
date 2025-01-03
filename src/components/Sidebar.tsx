@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { LogOut } from 'lucide-react';
+import { LogOut, Bookmark, User } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { User } from '@supabase/supabase-js';
+import { User as SupabaseUser } from '@supabase/supabase-js';
 
 interface SidebarProps {
   onSignOut: () => Promise<void>;
 }
 
 export const Sidebar = ({ onSignOut }: SidebarProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
@@ -22,10 +22,21 @@ export const Sidebar = ({ onSignOut }: SidebarProps) => {
 
   return (
     <div
-      className="fixed top-0 left-0 h-full z-50"
+      className="fixed h-full z-50"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      {/* Collapsed sidebar content - only visible when not hovered */}
+      <div
+        className={`absolute top-0 left-0 w-12 h-full flex flex-col items-center py-6 transition-opacity duration-200 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+      >
+        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center mb-6 ">
+          <User className="w-5 h-5 text-primary" />
+        </div>
+        <Bookmark className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+      </div>
+
+      {/* Expandable sidebar */}
       <div
         className={`h-full bg-background/95 backdrop-blur-sm border-r border-primary/20 overflow-hidden transition-all duration-300 ease-out ${
           isHovered ? 'w-72' : 'w-0'
@@ -40,8 +51,8 @@ export const Sidebar = ({ onSignOut }: SidebarProps) => {
           
           <div className="flex-1 p-6">
             {user && (
-              <div className="space-y-4  relative top-[31rem] ">
-                <div className="space-y-2 relative left-3 ">
+              <div className="space-y-4 relative top-[31rem]">
+                <div className="space-y-2 relative left-3">
                   <p className="text-sm text-muted-foreground px-14">Signed in as:</p>
                   <p className="font-medium">{user.email}</p>
                 </div>

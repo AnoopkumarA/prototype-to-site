@@ -1,9 +1,4 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import React from 'react';
 
 const faqs = [
   {
@@ -22,22 +17,23 @@ const faqs = [
 
 export const FAQ = () => {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16">
-      <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
-        Frequently Asked Questions
-      </h2>
-      <Accordion type="single" collapsible className="w-full space-y-4">
+    <div className="w-full max-w-7xl mx-auto px-4 py-16 hero-gradient">
+      <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {faqs.map((faq, index) => (
-          <AccordionItem key={index} value={`item-${index}`} className="bg-secondary rounded-lg px-6">
-            <AccordionTrigger className="text-left hover:text-primary transition-colors">
+          <div
+            key={index}
+            className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-200"
+          >
+            <h3 className="text-xl font-semibold mb-4 text-white">
               {faq.question}
-            </AccordionTrigger>
-            <AccordionContent className="text-muted-foreground">
+            </h3>
+            <p className="font-mono text-sm text-white/70 leading-relaxed">
               {faq.answer}
-            </AccordionContent>
-          </AccordionItem>
+            </p>
+          </div>
         ))}
-      </Accordion>
+      </div>
     </div>
   );
 };
